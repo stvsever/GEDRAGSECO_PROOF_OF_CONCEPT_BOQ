@@ -7,15 +7,15 @@ import numpy as np
 
 client = OpenAI(api_key="") # API_KEY is personal so was deleted
 
-survey_name = "Center for Epidemiologic Studies Depression scale"
+survey_name = "Center for Epidemiologic Studies Depression scale" # example from questionaire that was used in our study
 general_concept = "depression"
 questions = [
     "I was bothered by things that usually don’t bother me.",
     "I did not feel like eating; my appetite was poor.",
     "I felt that I could not shake off the blues even with help from my family or friends.",
     "I felt I was just as good as other people.",
-    "I had trouble keeping my mind on what I was doing.",
-    "I felt depressed.",  # global question !
+    "I had trouble keeping my mind on what I was doing.", # QUESTION 1 (specific)
+    "I felt depressed.",  # global question ! # QUESTION 2 (global)
     "I felt that everything I did was an effort.",
     "I felt hopeful about the future.",
     "I thought my life had been a failure.",
