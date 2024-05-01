@@ -71,7 +71,7 @@ def calc_similarities_dict(my_model, questions, numeric_vector_general_concept):
     return questions_compared
 
 
-# Functie om te controleren op vraagvolgorde bias binnen de vragenlijst.
+# Functie om te controleren voor een mogelijkse vraagvolgorde bias.
 def test_question_order_bias(questions_compared):
     treshold = 0.85  # verder onderzoek kan mogelijks bepalen welke optimale waarde hier kan gebruikt worden
     max_sim = max(questions_compared.values())
