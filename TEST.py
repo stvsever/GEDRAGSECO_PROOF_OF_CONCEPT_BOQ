@@ -18,7 +18,7 @@ client = OpenAI(
 )  # Deze sleutel is persoonlijk en werd dus verwijderd
 
 # Het gebruikte voorbeeld voor de proof-of-concept is de vragenlijst CESD: 
-# (De bedoeling voor dit voorbeeld is dus dat het algoritme een 'userwarning' genereert over de zesde vraag
+# (De bedoeling in dit voorbeeld is dus dat het algoritme een 'userwarning' genereert over de zesde vraag
 
 survey_name = "Center for Epidemiologic Studies Depression scale"  # dit is het voorbeeld dat gebruikt wordt in dit script
 general_concept = "depression"  # "wat is het algemeen concept waarnaar gepeild wordt?"
