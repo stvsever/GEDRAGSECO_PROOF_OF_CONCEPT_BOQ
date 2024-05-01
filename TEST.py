@@ -1,5 +1,12 @@
 # ALGORITME _ GEDRAGSECONOMIE
 
+# Dit python script is implementeerbaar als een criterium van automatische reviews van opgestelde surveys. (na optimalisering weliswaar)
+# Wat doet het? Het gaat op zoek naar een question-order bias. De meest methodologisch verantwoorde survey flow van een set aan vragen is dat de globale vraag eerst komt.
+# Als de globale vraag niet eerst komt, kan er mogelijk een vertekening optreden doordat er reeds concrete informatie actief is die de subsequente oproeping van informatie beïnvloedt.
+# Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
+# Als de globale vraag bestaat EN zijn indexpositie niet nul is dan kan er een mogelijke vertekening ontstaan door specifieke vragen.
+# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeld dat er mogelijk een question-order bias kan optreden.
+
 from openai import OpenAI
 import re
 import numpy as np
@@ -8,6 +15,9 @@ client = OpenAI(
     api_key=""
 )  # Deze sleutel is persoonlijk en werd dus verwijderd
 
+# Het gebruikte voorbeeld voor de proof-of-concept is de vragenlijst CESD: 
+# (De bedoeling voor dit voorbeeld is dus dat het algoritme een 'userwarning' genereert over de zesde vraag
+
 survey_name = "Center for Epidemiologic Studies Depression scale"  # dit is het voorbeeld dat gebruikt wordt in dit script
 general_concept = "depression"  # "wat is het algemeen concept waarnaar gepeild wordt?"
 questions = [
@@ -15,8 +25,8 @@ questions = [
     "I did not feel like eating; my appetite was poor.",
     "I felt that I could not shake off the blues even with help from my family or friends.",
     "I felt I was just as good as other people.",
-    "I had trouble keeping my mind on what I was doing.",  # Question-specific (gebruikt door onze groep)
-    "I felt depressed.",  # global question ! Question-global (gebruikt door onze groep)
+    "I had trouble keeping my mind on what I was doing.",  # Specific question (gebruikt door onze groep)
+    "I felt depressed.",  # global question ! (gebruikt door onze groep)
     "I felt that everything I did was an effort.",
     "I felt hopeful about the future.",
     "I thought my life had been a failure.",
@@ -67,7 +77,7 @@ def test_question_order_bias(questions_compared):
         match = re.search(r"\d+$", key)
         index = int(match.group()) - 1
 
-        # Controleer of de vraag met de hoogste gelijkenis niet als eerste staat.
+        # Controleer of de vraag met de hoogste gelijkenis niet als eerste staat. (en ofdat de globale vraag bestaat ; 'bestaat' wordt hier geoperationaliseerd door de grootte van de cosinus similariteitscoefficient)
         if value == max_sim and index != 0 and (max_sim > treshold):
             return f'Userwarning: Bij jouw vragenlijst treedt mogelijks een question-order bias op! Let op {key}: "{questions[index]}", probeer een globale vraag als eerst te stellen.'
     else:
@@ -84,4 +94,4 @@ questions_compared = calc_similarities_dict(
 
 print(test_question_order_bias(questions_compared))
 
-# er kan ook een lijst aangemaakt worden waar de namen van alle vragenlijsten in komen waar de methodologisch onverantwoord sequentie 'specific->general' aanwezig is. Er wordt dus een lijst aangemaakt ; voor elke vragenlijst wordt de aanwezigheid van de question-order bias getest. Indien 'True' dan appendeer je de naam aan de lijst.
+# Het printte, zoals verwacht, de userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept
