@@ -5,7 +5,9 @@
 # Als de globale vraag niet eerst komt, kan er mogelijk een vertekening optreden doordat er reeds concrete informatie actief is die de subsequente oproeping van informatie beïnvloedt.
 # Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
 # Als de globale vraag bestaat EN zijn indexpositie niet nul is dan kan er een mogelijke vertekening ontstaan door specifieke vragen.
-# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeld dat er mogelijk een question-order bias kan optreden.
+# Dit script heeft twee toepassingen:
+# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeld dat er mogelijks een question-order bias kan optreden. (in prospect toepassing)
+# Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van gebruikte vragen. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
 
 from openai import OpenAI
 import re
@@ -94,4 +96,4 @@ questions_compared = calc_similarities_dict(
 
 print(test_question_order_bias(questions_compared))
 
-# Het printte, zoals verwacht, de userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept
+# Het printte, zoals verwacht, de userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig dat het algoritme lijkt te werken)
