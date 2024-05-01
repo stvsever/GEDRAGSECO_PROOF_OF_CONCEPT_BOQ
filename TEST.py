@@ -6,7 +6,7 @@
 # Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
 # Als de globale vraag bestaat EN zijn indexpositie niet nul is dan kan er een mogelijke vertekening ontstaan door specifieke vragen.
 # Dit script heeft twee toepassingen:
-# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeld dat er mogelijks een question-order bias kan optreden. (in prospect toepassing)
+# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeldt dat er mogelijks een question-order bias kan optreden. (in prospect toepassing)
 # Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van gebruikte vragen. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
 
 from openai import OpenAI
