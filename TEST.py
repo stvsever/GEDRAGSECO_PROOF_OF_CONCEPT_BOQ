@@ -6,8 +6,8 @@
 # Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
 # Als de globale vraag bestaat EN zijn indexpositie niet nul is dan kan er een mogelijke vertekening ontstaan door specifieke vragen.
 # Dit script heeft twee toepassingen:
-# Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeldt dat er mogelijks een question-order bias kan optreden. (in prospect toepassing)
-# Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van gebruikte vragen. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
+# 1. (toepassing in prospect:) Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeldt dat er mogelijks een question-order bias kan optreden.
+# 2. (toepassing in retrospect:) Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van gebruikte vragen. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
 
 from openai import OpenAI
 import re
@@ -46,18 +46,18 @@ questions = [
 ]
 
 
-# Functie om een numerieke vector (embedding) te verkrijgen van een tekst. (zet elk verbaal concept om in machinetaal)
+# Functie om een numerieke vector (embedding) te verkrijgen van een stuk tekst. (zet elk semantischl concept om in machinetaal --> in een hoog-dimensionele vector waarop berekeningen kunnen gedaan worden)
 def get_embedding(model: str, text: str):
     response = client.embeddings.create(model=model, input=text)
     return response.data[0].embedding
 
 
-# Functie om de cosinusgelijkenis tussen twee vectoren te berekenen.
+# Functie om (cosinus)gelijkenis tussen twee vectoren te berekenen.
 def cosine_similarity(v1, v2):
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
 
-# Functie die gelijkenissen berekent tussen het algemene concept en elke vraag.
+# Functie die gelijkenissen berekent tussen het algemene concept en elke vraag van de vragenlijst.
 def calc_similarities_dict(my_model, questions, numeric_vector_general_concept):
     questions_compared = {}
 
@@ -79,7 +79,7 @@ def test_question_order_bias(questions_compared):
         match = re.search(r"\d+$", key)
         index = int(match.group()) - 1
 
-        # Controleer of de vraag met de hoogste gelijkenis niet als eerste staat. (en ofdat de globale vraag bestaat ; 'bestaat' wordt hier geoperationaliseerd door de grootte van de cosinus similariteitscoefficient)
+        # Controleer of de vraag met de hoogste gelijkenis niet als eerst wordt gesteld. (en ofdat de globale vraag uberhaupt bestaat uiteraard ; 'bestaat' wordt hier geoperationaliseerd door 'het groter zijn dan een bepaalde drempelwaarde')
         if value == max_sim and index != 0 and (max_sim > treshold):
             return f'Userwarning: Bij jouw vragenlijst treedt mogelijks een question-order bias op! Let op {key}: "{questions[index]}", probeer een globale vraag als eerst te stellen.'
     else:
