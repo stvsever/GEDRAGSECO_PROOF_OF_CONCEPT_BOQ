@@ -96,4 +96,4 @@ questions_compared = calc_similarities_dict(
 
 print(test_question_order_bias(questions_compared))
 
-# Dit print, zoals verwacht, een userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig dat het algoritme lijkt te werken ; er is zeker ruimte voor optimalisering)
+# Dit print, zoals verwacht, een userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig dat het algoritme lijkt te werken ; er is daarnaast zeker ruimte voor optimalisering)
