@@ -1,13 +1,13 @@
 # ALGORITME _ GEDRAGSECONOMIE
 
-# Dit python script is implementeerbaar als een criterium van automatische reviews van opgestelde surveys. (na optimalisering weliswaar)
+# Dit python script is implementeerbaar, na optimalisering weliswaar, als een criterium van automatische reviews van opgestelde surveys. (DISCLAIMER: dit is een proof-of-concept ; we doen geen claims dat het al implementeerbaar zou zijn)
 # Wat doet het? Het gaat op zoek naar een question-order bias. De meest methodologisch verantwoorde survey flow van een set aan vragen is dat de globale vraag eerst komt.
 # Als de globale vraag niet eerst komt, kan er mogelijk een vertekening optreden doordat er reeds concrete informatie actief is die de subsequente oproeping van informatie beïnvloedt.
 # Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
 # Als de globale vraag bestaat EN zijn indexpositie niet nul is dan kan er een mogelijke vertekening ontstaan door specifieke vragen.
 # Dit script heeft twee toepassingen:
-# 1. (toepassing in prospect:) Op bv Qualtrics, kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeldt dat er mogelijks een question-order bias kan optreden.
-# 2. (toepassing in retrospect:) Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van gebruikte vragen. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
+# 1. (toepassing in prospect:) Op bv Qualtrics of Survio (i.e. websites waar men vragenlijsten kan opstellen) kan een USERWARNING gegenereerd worden in de automatische expert review sectie 'methodology'. Deze warning vermeldt dat er mogelijks een question-order bias kan optreden.
+# 2. (toepassing in retrospect:) Via grote databanken waarin sets van vragenlijsten worden opgeslagen kan een screening gedaan worden van bestaande vragenlijsten. De vragenlijsten waarin zo'n specific-general sequentie zit kan als logistiek beginpunt gebruikt worden voor onderzoekers die een studie uitvoeren omtrent de specific->general bias.
 
 from openai import OpenAI
 import re
@@ -18,9 +18,9 @@ client = OpenAI(
 )  # Deze sleutel is persoonlijk en werd dus verwijderd
 
 # Het gebruikte voorbeeld voor de proof-of-concept is de vragenlijst CESD: 
-# (De bedoeling in dit voorbeeld is dus dat het algoritme een 'userwarning' genereert over de zesde vraag
+# De bedoeling in dit voorbeeld is dus dat het algoritme een 'userwarning' genereert over de zesde vraag (i.e. de globale vraag later komt dan minstens één specifieke vraag)
 
-survey_name = "Center for Epidemiologic Studies Depression scale"  # dit is het voorbeeld dat gebruikt wordt in dit script
+survey_name = "Center for Epidemiologic Studies Depression scale"
 general_concept = "depression"  # "wat is het algemeen concept waarnaar gepeild wordt?"
 questions = [
     "I was bothered by things that usually don’t bother me.",
