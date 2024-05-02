@@ -80,7 +80,7 @@ def test_question_order_bias(questions_compared):
         index = int(match.group()) - 1
 
         # Controleer of de vraag met de hoogste gelijkenis niet als eerst wordt gesteld. (en ofdat de globale vraag uberhaupt bestaat uiteraard ; 'bestaat' wordt hier geoperationaliseerd door 'het groter zijn dan een bepaalde drempelwaarde')
-        if value == max_sim and index != 0 and (max_sim > treshold):
+        if value == max_sim and (max_sim > treshold) and index != 0:
             return f'Userwarning: Bij jouw vragenlijst treedt mogelijks een question-order bias op! Let op {key}: "{questions[index]}", probeer een globale vraag als eerst te stellen.'
     else:
         return "Jouw vragenlijst is OK!"
