@@ -1,7 +1,7 @@
 # ALGORITME _ GEDRAGSECONOMIE
 
 # Dit python script is implementeerbaar, na optimalisering weliswaar, als een criterium van automatische reviews van opgestelde surveys. 
-# (DISCLAIMER: dit is een proof-of-concept ; we doen geen claims dat het al implementeerbaar zou zijn)
+# (DISCLAIMER: dit is een proof-of-concept ; we doen geen claims dat het al daadwerkelijk bruikbaar zou zijn)
 # Wat doet het? Het gaat op zoek naar een question-order bias. De meest methodologisch verantwoorde survey flow van een set aan vragen is dat de globale vraag eerst komt.
 # Als de globale vraag niet eerst komt, kan er mogelijk een vertekening optreden doordat er reeds concrete informatie actief is die de subsequente oproeping van informatie beïnvloedt.
 # Dit fenomeen valt onder de beschikbaarheidsheuristiek. In dit script wordt opzoek gegaan naar enerzijds het bestaan van een globale vraag en anderzijds de locatie van de globale vraag.
