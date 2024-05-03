@@ -103,5 +103,5 @@ questions_compared = calc_similarities_dict(
 
 print(test_question_order_bias(questions_compared))
 
-# Dit print, zoals verwacht, een userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig (p=1/20) dat het algoritme de vraag eruithaalt ; er is daarnaast ZEKER ruimte voor optimalisering).
+# Dit print, zoals verwacht, een userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig (p=1/20) dat het algoritme de vraag eruithaalt)
 # Het algoritme werkt ook voor onze andere vier vragenlijsten (Perceived Stress Scale, Davidson Resilience Scale, General Social Survey en School Safety Survey).
