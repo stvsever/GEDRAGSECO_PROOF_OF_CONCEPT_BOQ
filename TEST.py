@@ -87,6 +87,8 @@ def test_question_order_bias(questions_compared):
         # Controleer of de vraag met de hoogste gelijkenis niet als eerst wordt gesteld. (en ofdat de globale vraag uberhaupt bestaat uiteraard ; 'bestaat' wordt hier geoperationaliseerd door 'het groter zijn dan een bepaalde drempelwaarde')
         if value == max_sim and (max_sim > treshold) and index != 0:
             return f'Userwarning: Bij jouw vragenlijst treedt mogelijks een question-order bias op! Let op {key}: "{questions[index]}", probeer een globale vraag als eerst te stellen. (question{index+1}vector_cosinesimilarity_generalconceptvector == {round(questions_compared[f"vraag {index+1}"],3)})'
+        elif max_sim < treshold:
+            return f"Er werd wellicht geen globale vraag gesteld: 'max_sim == {max_sim}'."
     else:
         return "Jouw vragenlijst is OK!"
 
@@ -102,3 +104,4 @@ questions_compared = calc_similarities_dict(
 print(test_question_order_bias(questions_compared))
 
 # Dit print, zoals verwacht, een userwarning voor vraag zes (i.e. de globale vraag). --> dit is dus een proof-of-concept (we proberen geen grote claims te doen ; maar het is niet ontoevallig dat het algoritme lijkt te werken ; er is daarnaast zeker ruimte voor optimalisering)
+# Het algoritme werkt ook voor onze andere vier vragenlijsten (Perceived Stress Scale, Davidson Resilience Scale, General Social Survey en School Safety Survey)
